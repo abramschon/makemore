@@ -1,6 +1,7 @@
-# Makemore tutorial, Karpathy
+# Makemore tutorials, Karpathy
 
 Repo: https://github.com/karpathy/makemore
 
 Videos:
-- https://www.youtube.com/watch?v=PaCmpygFfXo
+- [Intro to language modelling](https://www.youtube.com/watch?v=PaCmpygFfXo)
+- [MLP](https://www.youtube.com/watch?v=TCH_1BHY58I)
