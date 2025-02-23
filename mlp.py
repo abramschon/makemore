@@ -188,11 +188,13 @@ parameters = [C, W1, b1, W2, b2]
 for param in parameters:
     param.requires_grad = True
 
-steps = 10000
-batch_size = 32
-lr = 10**-1
+
 
 #%% Train
+steps = 10000
+batch_size = 128
+lr = 10**-2
+
 for i in range(steps):
     ix = torch.randint(0, len(Xtr), size=(batch_size,))
     # Forward pass
@@ -223,16 +225,21 @@ To further improve performance, Andrej considers increasing the latent dimension
 and the size of the middle layer. At some point the training and validation losses diverged.
 He introduces the idea of hyperparameter tuning.
 """
-context = [ctoi[ST]]*3
-out = ""
-#%% Sample from the updated model
-x_new = torch.tensor([context]) # 1, 3
-emb = C[x_new]
-h = torch.tanh(emb.view(-1, 6) @ W1 + b1)
-logits = h @ W2 + b2
-probs = F.softmax(logits, dim=1)
-ix = torch.multinomial(probs, num_samples=1).item()
-context = context[1:] + [ix]
-out += itoc[ix]
-print(out)
-# %%
+for _ in range(10):
+    context = [ctoi[ST]]*3
+    out = ""
+    while True:
+        # Sample from the updated model
+        x_new = torch.tensor([context]) # 1, 3
+        emb = C[x_new]
+        h = torch.tanh(emb.view(-1, 6) @ W1 + b1)
+        logits = h @ W2 + b2
+        probs = F.softmax(logits, dim=1)
+        ix = torch.multinomial(probs, num_samples=1).item()
+        context = context[1:] + [ix]
+        ch = itoc[ix] 
+        out += ch
+        if ch == ST:
+            print(out)
+            break
+    # %%

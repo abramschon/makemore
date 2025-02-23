@@ -40,7 +40,7 @@ In an earlier version, we used two special tokens for the start and end of each 
 We later combined them to just one.
 """
 fig, ax = plt.subplots(figsize=(16,16))
-ax.imshow(B, cmap=cmc.acton)
+ax.imshow(B)
 color_thresh = int(B.max()/2)
 # add the bigrams to each cell
 for i in range(B.shape[0]):
